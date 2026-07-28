@@ -15,12 +15,20 @@ public sealed class RepositorioProvaOrmTests
     private GeradorDeProvasDbContext dbContext = null!;
     private RepositorioProvaEmOrm repositorio = null!;
 
+    // Hooks / Ganchos
     [TestInitialize]
     public void InicializarRepositorio()
     {
         dbContext = CriarDbContext(Guid.NewGuid());
 
         repositorio = new RepositorioProvaEmOrm(dbContext);
+    }
+
+    [TestCleanup]
+    public void LimparContexto()
+    {
+        dbContext.Dispose();
+
     }
 
     [TestMethod]
